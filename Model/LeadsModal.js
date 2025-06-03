@@ -18,9 +18,10 @@ const leadSchemas = mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    verificationToken: { type: String },
     otp: {
       type: String,
-    },
+    }
   },
   { timestamps: true }
 );

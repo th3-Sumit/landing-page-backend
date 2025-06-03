@@ -1,8 +1,9 @@
 const express = require('express')
-const { register } = require('../Controller/AuthController')
+const { createLeads, verifyLeads } = require('../Controller/LeadController')
 const router = express.Router()
 
-router.post('/sign-up', register)
+router.post('/leads', createLeads)
+router.post('/verify-otp', verifyLeads)
 
 
 
