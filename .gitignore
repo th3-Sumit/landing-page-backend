@@ -2,7 +2,6 @@
 node_modules/
 
 # Environment variables
-.env
 
 # Logs
 logs/
@@ -26,7 +25,6 @@ build/
 Thumbs.db
 
 # IDEs and editors
-.vscode/
 .idea/
 *.sw?
 
@@ -37,3 +35,4 @@ coverage/
 uploads/
 data/
 tmp/
+config.bat
