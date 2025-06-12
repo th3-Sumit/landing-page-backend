@@ -15,11 +15,11 @@ const db = async () => {
         console.log(err, "Connection failed ...!!");
       }
     );
-    // const result = await LeadsModal.updateMany(
-    //     {}, // Empty filter to match all documents
-    //     { $set: { timestamps: false } }, // Set isDeleted to false
-    //     { upsert: false } // Don't create new documents
-    //   );
+    const result = await LeadsModal.updateMany(
+        {}, // Empty filter to match all documents
+        { $set: { stage: 'Lead' } }, // Set isDeleted to false
+        { upsert: false } // Don't create new documents
+      );
 
   } catch (error) {
     console.log(error);

@@ -6,16 +6,16 @@ const nodemailer = require("nodemailer");
 
 exports.createLeads = async (req, res) => {
   try {
-    const { name = "", email = "", message = "" } = req.body;
+    const { name = "", email = "", message = "", stage="Lead" } = req.body;
 
-    const leadsList = await LeadsModal.findOne({email})
+    // const leadsList = await LeadsModal.findOne({email})
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
-    if(leadsList){
-      return res.status(400).send({
-        message: "You have already sent your message."
-      })
-    }
+    // if(leadsList){
+    //   return res.status(400).send({
+    //     message: "You have already sent your message."
+    //   })
+    // }
 
     const newLead = new LeadsModal({
       name,
@@ -23,6 +23,7 @@ exports.createLeads = async (req, res) => {
       message,
       isVerified: false,
       otp,
+      stage
     });
 
     await newLead.save();
@@ -105,3 +106,31 @@ exports.verifyLeads = async (req, res) => {
     });
   }
 };
+
+exports.getAllLeads = async (req, res) => {
+  try {
+    const {email} = req.user;
+    if(!email){
+      return res.status(400).send({
+        success: false,
+        message: "User not verified. "
+      })
+    }
+
+    const allLeads = await LeadsModal.find().select("-otp");
+
+    return res.status(201).send({
+      success: true,
+      message: "Data received successfully.",
+      data: allLeads
+    })
+
+
+  } catch (error) {
+    return res.status(500).send({
+      message: "Something went wrong.",
+      error: error.message,
+    });
+    
+  }
+}
